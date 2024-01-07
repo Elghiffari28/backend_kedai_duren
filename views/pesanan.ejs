@@ -1,0 +1,77 @@
+<div class="min-h-screen flex justify-center">
+  <div class="px-6">
+    <h1 class="text-3xl font-bold text-gray-900 text-center py-5">
+      Daftar Pemesan
+    </h1>
+
+    <!-- <a
+  href="/meja/add"
+  class="h-10 bg-gray-800 rounded-md shadow-md px-3 py-1 text-white"
+  >➕ Tambah Menu</a
+> -->
+
+    <% if (results.length > 0) { %>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 mb-5">
+      <table
+        class="w-full text-xs text-left xl:text-lg rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3 text-center">Nama Pemesan</th>
+            <th scope="col" class="px-6 py-3 text-center">No HP</th>
+            <th scope="col" class="px-6 py-3 text-center">Jam Booking</th>
+            <th scope="col" class="px-6 py-3 text-center">Tanggal Booking</th>
+            <th scope="col" class="px-6 py-3 text-center">Jumlah Tamu</th>
+            <th scope="col" class="px-6 py-3 text-center">Nomor Meja</th>
+            <th scope="col" class="px-6 py-3 text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.forEach(pesan => { %>
+          <tr
+            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+          >
+            <td class="tabel text-center"><%= pesan.nama %></td>
+            <td
+              class="tabel px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              <%= pesan.nohp %>
+            </td>
+            <td class="tabel overflow-auto"><%= pesan.jam %></td>
+            <td class="tabel"><%= formatDate(pesan.tanggal) %></td>
+            <td class="tabel"><%= pesan.jumlah_tamu %></td>
+            <td class="tabel"><%= pesan.id_meja %></td>
+            <td class="tabel grid-flow-row text-center">
+              <a href=""></a>
+              <a
+                href=""
+                class="p-2 mr-4 bg-red-500 text-white rounded-md"
+                onclick="return confirm('anda yakin ingin menghapus menu')"
+                >Hapus
+              </a>
+              <a href="" class="p-2 mr-4 bg-green-500 text-white rounded-md">
+                Edit
+              </a>
+              <a
+                href="/selesai-pesanan/<%= pesan.id_meja %>"
+                class="p-2 bg-blue-500 text-white rounded-md"
+                onclick="return alert('Pesanan Selesai! Meja akan diset menjadi tersedia')"
+                >Selesai</a
+              >
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% }else { %>
+    <div class="h-full">
+      <p class="text-center font-bold text-3xl text-red-500">
+        Data Menu Tidak Ada !!
+      </p>
+    </div>
+    <% } %>
+  </div>
+</div>

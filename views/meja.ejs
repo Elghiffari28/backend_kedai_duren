@@ -1,0 +1,77 @@
+<div class="min-h-screen flex justify-center">
+  <div class="">
+    <h1 class="text-3xl font-bold text-gray-900 text-center py-5">
+      Daftar Meja
+    </h1>
+
+    <a
+      href="/meja/add"
+      class="h-10 bg-gray-800 rounded-md shadow-md px-3 py-1 text-white"
+      >➕ Tambah Meja</a
+    >
+
+    <% if (results.length > 0) { %>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 mb-5">
+      <table
+        class="w-full text-xs text-left xl:text-lg rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3 text-center">No Meja</th>
+            <th scope="col" class="px-6 py-3 text-center">Kapasitas</th>
+            <th scope="col" class="px-6 py-3 text-center">Deskripsi</th>
+            <th scope="col" class="px-6 py-3 text-center">Status</th>
+            <th scope="col" class="px-6 py-3 text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.forEach(meja => { %>
+          <tr
+            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+          >
+            <td class="tabel w-20 text-center"><%= meja.no_meja %></td>
+            <td
+              class="tabel px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              <%= meja.kapasitas %>
+            </td>
+            <td class="tabel w-96 overflow-auto"><%= meja.deskripsi %></td>
+            <td class="tabel">
+              <% if (meja.status === 1) { %> Tersedia <% } else { %> Tidak
+              Tersedia <% } %>
+            </td>
+            <td class="tabel w-80 text-center">
+              <a
+                href="/ubah-status-meja/<%= meja.id_meja %>"
+                class="p-2 mr-4 bg-blue-500 text-white rounded-md"
+                >Ganti Status</a
+              >
+              <a
+                href="/meja/delete/<%= meja.id_meja %>"
+                class="p-2 mr-4 bg-red-500 text-white rounded-md"
+                onclick="return confirm('anda yakin ingin menghapus meja')"
+                >Hapus
+              </a>
+              <a
+                href="/meja/edit/<%= meja.id_meja %>"
+                class="p-2 bg-green-500 text-white rounded-md"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% }else { %>
+    <div class="h-full">
+      <p class="text-center font-bold text-3xl text-red-500">
+        Data Menu Tidak Ada !!
+      </p>
+    </div>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="min-h-screen flex justify-center">
+  <div class="px-6">
+    <h1 class="text-3xl font-bold text-gray-900 text-center py-5">
+      Daftar Menu
+    </h1>
+
+    <a
+      href="/menu/add"
+      class="h-10 bg-secondary rounded-md shadow-md px-3 py-1 text-white"
+      >➕ Tambah Menu</a
+    >
+
+    <% if (msg.length !== 0) { %>
+    <div
+      class="flex items-center p-4 mt-4 text-sm text-primary rounded-lg bg-green-500"
+      role="alert"
+    >
+      <span class="font-medium"><%= msg %></span>
+    </div>
+    <% } else if (updtMsg.length !== 0){ %>
+    <div
+      class="flex items-center p-4 mt-4 text-sm text-primary rounded-lg bg-green-500"
+      role="alert"
+    >
+      <span class="font-medium"><%= updtMsg %></span>
+    </div>
+    <% } else if (delMsg.length !== 0) { %>
+    <div
+      class="flex items-center p-4 mt-4 text-sm text-primary rounded-lg bg-green-500"
+      role="alert"
+    >
+      <span class="font-medium"><%= delMsg %></span>
+    </div>
+    <% } %> <% if (results.length > 0) { %>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 mb-5">
+      <table class="w-full text-xs text-left xl:text-lg rtl:text-right text-bg">
+        <thead class="text-xs text-secondary uppercase bg-bg">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-center tabel">Kode Produk</th>
+            <th scope="col" class="px-6 py-3 text-center tabel">
+              Nama Makanan
+            </th>
+            <th scope="col" class="px-6 py-3 text-center tabel">Deskripsi</th>
+            <th scope="col" class="px-6 py-3 text-center tabel">Kategori</th>
+            <th scope="col" class="px-6 py-3 text-center tabel">Harga</th>
+            <th scope="col" class="px-6 py-3 text-center tabel">Foto</th>
+            <th scope="col" class="px-6 py-3 text-center tabel">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.forEach(menu => { %>
+          <tr class="odd:bg-secondary even:bg-third">
+            <td class="tabel w-20 text-center"><%= menu.kode %></td>
+            <td
+              class="tabel px-6 py-4 font-medium text-bg whitespace-nowrap dark:text-white"
+            >
+              <%= menu.nama_menu %>
+            </td>
+            <td class="tabel w-96 overflow-auto"><%= menu.deskripsi %></td>
+            <td class="tabel"><%= menu.kategori %></td>
+            <td class="tabel">Rp. <%= menu.harga %></td>
+            <td class="tabel">
+              <img
+                src="<%= img_path + menu.gambar %>"
+                alt="<%= menu.nama_menu %>"
+                width="100px"
+              />
+            </td>
+            <td class="tabel w-44 grid-flow-row text-center">
+              <a
+                href="/menu/delete/<%= menu.kode %>"
+                class="p-2 mr-4 bg-red-500 text-white rounded-md"
+                onclick="return confirm('anda yakin ingin menghapus menu')"
+                >Hapus
+              </a>
+              <a
+                href="/menu/edit/<%= menu.kode %>"
+                class="p-2 bg-green-500 text-white rounded-md"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% }else { %>
+    <div class="h-full">
+      <p class="text-center font-bold text-3xl text-red-500">
+        Data Menu Tidak Ada !!
+      </p>
+    </div>
+    <% } %>
+  </div>
+</div>

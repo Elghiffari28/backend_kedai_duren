@@ -1,0 +1,32 @@
+<!-- edit-menu.ejs -->
+<form action="/menu/update" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="kode" value="<%= results[0].kode %>" />
+  <label for="nama_menu">Nama Menu:</label>
+  <input
+    type="text"
+    id="nama_menu"
+    name="nama_menu"
+    value="<%= results[0].nama_menu %>"
+  />
+
+  <label for="deskripsi">Deskripsi:</label>
+  <textarea id="deskripsi" name="deskripsi">
+<%= results[0].deskripsi %></textarea
+  >
+
+  <label for="kategori">Kategori:</label>
+  <input
+    type="text"
+    id="kategori"
+    name="kategori"
+    value="<%= results[0].kategori %>"
+  />
+
+  <label for="harga">Harga:</label>
+  <input type="text" id="harga" name="harga" value="<%= results[0].harga %>" />
+
+  <label for="gambar">Gambar:</label>
+  <input type="file" id="gambar" name="gambar" />
+
+  <button type="submit">Simpan Perubahan</button>
+</form>
