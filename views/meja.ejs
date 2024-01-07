@@ -9,8 +9,28 @@
       class="h-10 bg-gray-800 rounded-md shadow-md px-3 py-1 text-white"
       >➕ Tambah Meja</a
     >
-
-    <% if (results.length > 0) { %>
+    <% if (msg.length !== 0) { %>
+    <div
+      class="flex items-center p-4 mt-4 text-sm text-primary rounded-lg bg-green-500"
+      role="alert"
+    >
+      <span class="font-medium"><%= msg %></span>
+    </div>
+    <% } else if (updtMsg.length !== 0){ %>
+    <div
+      class="flex items-center p-4 mt-4 text-sm text-primary rounded-lg bg-green-500"
+      role="alert"
+    >
+      <span class="font-medium"><%= updtMsg %></span>
+    </div>
+    <% } else if (delMsg.length !== 0) { %>
+    <div
+      class="flex items-center p-4 mt-4 text-sm text-primary rounded-lg bg-green-500"
+      role="alert"
+    >
+      <span class="font-medium"><%= delMsg %></span>
+    </div>
+    <% } %> <% if (results.length > 0) { %>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 mb-5">
       <table
         class="w-full text-xs text-left xl:text-lg rtl:text-right text-gray-500 dark:text-gray-400"

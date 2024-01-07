@@ -86,6 +86,9 @@ app.get("/meja", (req, res) => {
       title: "Daftar Meja",
       results,
       url: req.protocol + "://" + req.headers.host,
+      msg: req.flash("msg"),
+      updtMsg: req.flash("updtMsg"),
+      delMsg: req.flash("delMsg"),
     });
   });
 });
@@ -305,7 +308,7 @@ app.post("/meja/:id_meja", (req, res) => {
         message: results.message,
       };
       // response(200, data, "Data berhasil diubah", res);
-      req.flash("msg", "Meja berhasil diubah!");
+      req.flash("updtMsg", "Meja berhasil diubah!");
       res.redirect("/meja");
     } else {
       console.log("Data Tidak Ditemukan");
@@ -491,7 +494,7 @@ app.get("/meja/delete/:id_meja", (req, res) => {
         res.status(500).json({ mesaage: "Error menghapus data" });
       } else {
         if (deleteResult.affectedRows > 0) {
-          req.flash("msg", "Meja berhasil dihapus!");
+          req.flash("delMsg", "Meja berhasil dihapus!");
           res.redirect("/meja");
         } else {
           res.status(404).json({ message: "Data tidak ditemukan" });
