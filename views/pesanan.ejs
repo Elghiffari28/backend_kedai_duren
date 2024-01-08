@@ -25,6 +25,7 @@
             <th scope="col" class="px-6 py-3 text-center">Tanggal Booking</th>
             <th scope="col" class="px-6 py-3 text-center">Jumlah Tamu</th>
             <th scope="col" class="px-6 py-3 text-center">Nomor Meja</th>
+            <th scope="col" class="px-6 py-3 text-center">Catatan Pelanggan</th>
             <th scope="col" class="px-6 py-3 text-center">Aksi</th>
           </tr>
         </thead>
@@ -35,15 +36,19 @@
           >
             <td class="tabel text-center"><%= pesan.nama %></td>
             <td
-              class="tabel px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="tabel px-6 py-4 font-medium text-xs text-gray-900 whitespace-nowrap dark:text-white"
             >
               <%= pesan.nohp %>
             </td>
-            <td class="tabel overflow-auto"><%= pesan.jam %></td>
+            <td class="tabel"><%= pesan.jam %></td>
             <td class="tabel"><%= formatDate(pesan.tanggal) %></td>
             <td class="tabel"><%= pesan.jumlah_tamu %></td>
-            <td class="tabel"><%= pesan.id_meja %></td>
-            <td class="tabel grid-flow-row text-center">
+            <td class="tabel"><%= pesan.no_meja %></td>
+            <td class="tabel">
+              <% if (!pesan.catatan) { %> Tidak ada catatan <% } else { %> <%=
+              pesan.catatan %> <% } %>
+            </td>
+            <td class="tabel w-80 grid-flow-row text-center">
               <a href=""></a>
               <a
                 href=""
@@ -69,7 +74,7 @@
     <% }else { %>
     <div class="h-full">
       <p class="text-center font-bold text-3xl text-red-500">
-        Data Menu Tidak Ada !!
+        Data Pemesan Tidak Ada !!
       </p>
     </div>
     <% } %>

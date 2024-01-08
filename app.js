@@ -316,10 +316,32 @@ app.post("/meja/:id_meja", (req, res) => {
   });
 });
 
+app.post("/rating", (req, res) => {
+  const { rating } = req.body;
+  const sql = "INSERT INTO ratings (rating) VALUES (?)";
+
+  console.log(rating);
+
+  db.query(sql, [rating], (err, results) => {
+    if (err) {
+      throw err;
+    }
+    if (results?.affectedRows) {
+      const data = {
+        isSuccess: results.affectedRows,
+        message: results.message,
+      };
+      console.log(data);
+    } else {
+      console.log("Error memasukan data");
+    }
+  });
+});
+
 app.post("/proses_pemesanan", (req, res) => {
   console.log(req.body);
-  const { nama, nohp, jumlah_tamu, tanggal, jam, id_meja } = req.body;
-  console.log([nama, nohp, jumlah_tamu, tanggal, jam, id_meja]);
+  const { nama, nohp, jumlah_tamu, tanggal, jam, id_meja, catatan } = req.body;
+  console.log([nama, nohp, jumlah_tamu, tanggal, jam, id_meja, catatan]);
   const sqlCheckAvailability = `SELECT * FROM pemesan WHERE tanggal = ? AND jam = ? AND id_meja = ?`;
   db.query(
     sqlCheckAvailability,
@@ -333,10 +355,10 @@ app.post("/proses_pemesanan", (req, res) => {
       console.log(resultsCheck);
 
       if (resultsCheck.length === 0) {
-        const sql = `INSERT INTO pemesan (nama, nohp, jumlah_tamu, tanggal, jam, id_meja) VALUES (?, ?, ?, ?, ?, ?)`;
+        const sql = `INSERT INTO pemesan (nama, nohp, jumlah_tamu, tanggal, jam, id_meja, no_meja, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
         db.query(
           sql,
-          [nama, nohp, jumlah_tamu, tanggal, jam, id_meja],
+          [nama, nohp, jumlah_tamu, tanggal, jam, id_meja, id_meja, catatan],
           (err, results) => {
             console.log(err, results);
             if (err) response(500, results, "Error", res);
@@ -357,6 +379,7 @@ app.post("/proses_pemesanan", (req, res) => {
                 isSuccess: results.affectedRows,
                 message: results.message,
               };
+              console.log(data);
               req.flash("msg", "Pesanan dibuat!");
               response(
                 200,
@@ -379,7 +402,7 @@ app.post("/proses_pemesanan", (req, res) => {
 
 app.get("/ubah-status-meja/:id_meja", (req, res) => {
   const idMeja = req.params.id_meja;
-
+  console.log(idMeja);
   // Ambil status meja dari database
   const getStatusQuery = `SELECT status FROM meja WHERE id_meja = ${idMeja}`;
   db.query(getStatusQuery, (err, results) => {
@@ -396,8 +419,12 @@ app.get("/ubah-status-meja/:id_meja", (req, res) => {
       const updateStatusQuery = `UPDATE meja SET status = ${newStatus} WHERE id_meja = ${idMeja}`;
       db.query(updateStatusQuery, (updateErr, updateResults) => {
         if (updateErr) {
-          return;
-          response(500, updateResults, "Error saat mengubah status meja", res);
+          return response(
+            500,
+            updateErr,
+            "Error saat mengubah status meja",
+            res
+          );
         }
 
         if (updateResults?.affectedRows) {
