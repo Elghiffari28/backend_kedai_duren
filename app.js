@@ -14,6 +14,7 @@ const db = require("./connect");
 const { loadMenu, storage, deleteFile } = require("./utils/menu");
 const { loadMeja } = require("./utils/meja");
 const { loadPesanan, formatDate } = require("./utils/pesan");
+const { loadRatings } = require("./utils/rating");
 const session = require("express-session");
 
 app.set("view engine", "ejs");
@@ -51,10 +52,17 @@ app.use(flash());
 const upload = multer({ storage: storage });
 
 app.get("/", (req, res) => {
-  res.render("beranda", {
-    layout: "layouts/main",
-    title: "Beranda",
-    url: req.protocol + "://" + req.headers.host,
+  loadRatings((err, average) => {
+    if (err) {
+      throw err;
+    }
+    console.log(average);
+    res.render("beranda", {
+      layout: "layouts/main",
+      title: "Beranda",
+      average,
+      url: req.protocol + "://" + req.headers.host,
+    });
   });
 });
 
