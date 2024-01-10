@@ -1,6 +1,6 @@
 const db = require("../connect");
 const loadPesanan = (m) => {
-  const sql = "SELECT * FROM pemesan";
+  const sql = "SELECT * FROM pemesan ORDER BY tanggal DESC";
   db.query(sql, (err, results) => {
     if (err) {
       return m(err, null);

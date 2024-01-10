@@ -35,21 +35,17 @@
             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
           >
             <td class="tabel text-center"><%= pesan.nama %></td>
-            <td
-              class="tabel px-6 py-4 font-medium text-xs text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <%= pesan.nohp %>
-            </td>
+            <td class="tabel"><%= pesan.nohp %></td>
             <td class="tabel"><%= pesan.jam %></td>
             <td class="tabel"><%= formatDate(pesan.tanggal) %></td>
-            <td class="tabel"><%= pesan.jumlah_tamu %></td>
-            <td class="tabel"><%= pesan.no_meja %></td>
+            <td class="tabel w-10 text-center"><%= pesan.jumlah_tamu %></td>
+            <td class="tabel w-10 text-center"><%= pesan.no_meja %></td>
             <td class="tabel">
               <% if (!pesan.catatan) { %> Tidak ada catatan <% } else { %> <%=
               pesan.catatan %> <% } %>
             </td>
-            <td class="tabel w-80 grid-flow-row text-center">
-              <a href=""></a>
+            <td class="tabel grid-flow-row text-center">
+              <!-- <a href=""></a>
               <a
                 href=""
                 class="p-2 mr-4 bg-red-500 text-white rounded-md"
@@ -58,7 +54,7 @@
               </a>
               <a href="" class="p-2 mr-4 bg-green-500 text-white rounded-md">
                 Edit
-              </a>
+              </a> -->
               <a
                 href="/selesai-pesanan/<%= pesan.id_meja %>"
                 class="p-2 bg-blue-500 text-white rounded-md"
