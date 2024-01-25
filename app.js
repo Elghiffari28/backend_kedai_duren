@@ -218,21 +218,26 @@ app.post("/menu", upload.single("gambar"), (req, res) => {
   const { nama_menu, deskripsi, kategori, harga } = req.body;
   console.log({ nama_menu, deskripsi, kategori, harga });
   const gambar = req.file.filename;
-  const sql = `INSERT INTO menu ( nama_menu, deskripsi, kategori, harga, gambar) VALUES ( '${nama_menu}', '${deskripsi}', '${kategori}', ${harga}, '${gambar}')`;
-  db.query(sql, (err, results) => {
-    if (err) response(500, "Invalid", "Error", res);
-    if (results?.affectedRows) {
-      const data = {
-        isSuccess: results.affectedRows,
-        id: results.insertId,
-      };
-      // response(200, data, "Data berhasil ditambahkan", res);
-      req.flash("msg", "Menu berhasil ditambahkan!");
-      res.redirect("/menu");
-    } else {
-      console.log("Data gagal dimasukan");
+  const sql = `INSERT INTO menu ( nama_menu, deskripsi, kategori, harga, gambar) VALUES ( ?, ?, ?, ?, ?)`;
+  db.query(
+    sql,
+    [nama_menu, deskripsi, kategori, harga, gambar],
+    (err, results) => {
+      if (err) response(500, "Invalid", "Error", res);
+      console.log(results);
+      if (results?.affectedRows) {
+        const data = {
+          isSuccess: results.affectedRows,
+          id: results.insertId,
+        };
+        // response(200, data, "Data berhasil ditambahkan", res);
+        req.flash("msg", "Menu berhasil ditambahkan!");
+        res.redirect("/menu");
+      } else {
+        console.log("Data gagal dimasukan");
+      }
     }
-  });
+  );
 });
 
 // Route Update Menu
